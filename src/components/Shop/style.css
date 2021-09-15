@@ -1,0 +1,26 @@
+.containerShop{
+    height: 500px;
+    margin-bottom: 5%;
+}
+.shop{
+    border: 1px solid blue
+}
+.product{
+    height: 505px;
+    background-image: url(http://demo2.themelexus.com/petzen/wp-content/uploads/2020/04/home-4-01.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: -15rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.service{
+    height: 505px;
+    background-image: url(https://i.ibb.co/kXC6GTx/Artboard-2.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-x: 9rem;
+    display: flex;
+    justify-content: flex-start;
+}

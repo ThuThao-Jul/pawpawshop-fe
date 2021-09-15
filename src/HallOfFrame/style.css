@@ -1,0 +1,30 @@
+.title{
+    color: #3D087B;
+    font-family: 'Noto Serif';
+    width: 100%;
+    text-align: center;
+}
+.container{
+    text-align: center;
+    background-image: url(http://demo2.themelexus.com/petzen/wp-content/uploads/2020/05/home-1-28.jpg);
+    padding: 2%;
+    background-size: contain;
+}
+
+
+.image{
+    /* display: block; */
+    /* width: 126px;
+    height: 180px; */
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    border-style: dashed none none dashed;
+    border-color: #FF3D68;
+    border-width: 5px;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color:rgb(45, 81, 189);
+}
