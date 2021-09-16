@@ -6,7 +6,7 @@ const Footer = () => {
     return (
         <div className="footerContainer">
             <Grid container spacing={3} style={{padding:'3%'}}>
-            <Grid item xs={12} md={6} lg={4}>
+            <Grid item xs={6} md={4}>
                 <div style={{display:"flex"}} > 
                     <img src="https://i.ibb.co/PMYt7tW/logo.png" alt="logo" width="36" height="36" />
                     <Typography variant="h4" noWrap style={{fontFamily:'Noto Serif', color:"#3D087B"}}>
@@ -26,7 +26,7 @@ const Footer = () => {
                 </div>
             </Grid>
 
-            <Grid item xs={12} md={6} lg={4}>
+            <Grid item xs={6} md={4}>
                 <h2 className="darkBlue">Contact Us</h2>
                 <div className="contact">
                     <div>
@@ -45,7 +45,7 @@ const Footer = () => {
             </Grid>
 
             
-            <Grid item xs={12} md={6} lg={4}>
+            <Grid item xs={12} md={4}>
                 <h2 className="darkBlue">Newsletter</h2>
                 <div>
                 <form className="form" noValidate autoComplete="off">

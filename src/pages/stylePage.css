@@ -1,0 +1,25 @@
+.containerRegister{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3%;
+    background-image: url(https://i.ibb.co/XJ5z0BK/register.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.registerForm{
+    width: 40vw;
+    height: 50vh;
+    padding: 3%;
+    margin: 3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #3D087B;
+    border-radius: 15px;
+    box-shadow: 3px 4px #ff3d6785;
+}
+.logIn{
+    background-image: url(http://demo2.themelexus.com/petzen/wp-content/uploads/2020/05/home-1-28.png);
+}

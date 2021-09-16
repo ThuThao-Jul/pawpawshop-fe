@@ -9,6 +9,7 @@
     background-image: url(http://demo2.themelexus.com/petzen/wp-content/uploads/2020/05/home-1-28.jpg);
     padding: 2%;
     background-size: contain;
+    background-repeat: no-repeat;
 }
 
 

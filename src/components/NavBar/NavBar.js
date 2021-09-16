@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import useStyles from "./Style";
-import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Drawer, List, ListItem} from "@material-ui/core";
-import MailIcon from '@material-ui/icons/Mail';
+import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Drawer, List, ListItem, Button, Divider} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -10,16 +9,36 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import clsx from 'clsx';
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../../redux/actions/user.actions";
 
 const NavBar = () =>{
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.userReducer);
+    const loggedIn = user.login
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
     const [mobileMainMenu, setMobileMainMenu] = useState(false);
-  
+    const history = useHistory();
+    let cart = 0;
+    
+ 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    if (loggedIn) {
+      cart = user.data.cart.length;
+    }
   
+    const handleClickProduct = () =>{
+       history.push('/products')
+    }
+
+    const handleClickHome=()=>{
+      history.push('/')
+    }
 
     //for mobile
     const handleProfileMenuOpen = (event) => {
@@ -34,6 +53,10 @@ const NavBar = () =>{
       setAnchorEl(null);
       handleMobileMenuClose();
     };
+
+    const handleLogOut = () => {
+      dispatch(userActions.logOut())
+    }
   
     const handleMobileMenuOpen = (event) => {
       setMobileMoreAnchorEl(event.currentTarget);
@@ -46,6 +69,7 @@ const NavBar = () =>{
     const handleDrawerClose = () => {
         setMobileMainMenu(false);
       };
+
   
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -60,6 +84,8 @@ const NavBar = () =>{
       >
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        <Divider />
+        <MenuItem onClick={handleLogOut}>Log out</MenuItem>
       </Menu>
     );
   
@@ -74,17 +100,21 @@ const NavBar = () =>{
         open={isMobileMenuOpen}
         onClose={handleMobileMenuClose}
       >
-        <MenuItem>
-          <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
+
+      {/* Check if display user menu or non-user menu */}
+       { loggedIn  ? 
+          ( <div>
+            <MenuItem>
+          <IconButton aria-label= "show number of product in cart" color="inherit">
+            <Badge badgeContent={cart} color="secondary">
+              <ShoppingCartIcon />
             </Badge>
           </IconButton>
-          <p>Messages</p>
+          <p>Your cart</p>
         </MenuItem>
         <MenuItem>
-          <IconButton aria-label="show 11 new notifications" color="inherit">
-            <Badge badgeContent={11} color="secondary">
+          <IconButton aria-label="show 17 new notifications" color="inherit">
+            <Badge badgeContent={17} color="secondary">
               <NotificationsIcon />
             </Badge>
           </IconButton>
@@ -101,6 +131,20 @@ const NavBar = () =>{
           </IconButton>
           <p>Profile</p>
         </MenuItem>
+        </div>)
+         : 
+          (<div>
+            <MenuItem>
+          <Button onClick={()=> history.push('/login')} color="inherit"><b>Login</b></Button>
+        </MenuItem>
+        <MenuItem>
+          <Button onClick={()=> history.push('/register')} color="inherit">Register</Button>
+        </MenuItem>
+        </div>)}
+     
+     
+     
+     
       </Menu>
     );
 
@@ -142,8 +186,8 @@ const NavBar = () =>{
           </IconButton>
         </div>
         <List>
-              <ListItem button>Home</ListItem>
-              <ListItem button>Products</ListItem>
+              <ListItem button onClick={handleClickHome}>Home</ListItem>
+              <ListItem button onClick={handleClickProduct}>Products</ListItem>
               <ListItem button>Services</ListItem>
               <ListItem button>Event</ListItem>
               <ListItem button>Contact</ListItem>
@@ -159,8 +203,8 @@ const NavBar = () =>{
             </Typography>
             
             <div className={classes.sectionDesktop} style={{marginLeft:'4%'}}>
-            <MenuItem style={{ fontFamily:'Suez One', fontSize:'large'}}>Home</MenuItem>
-            <MenuItem style={{ fontFamily:'Suez One', fontSize:'large'}}>Products</MenuItem>
+            <MenuItem onClick={handleClickHome} style={{ fontFamily:'Suez One', fontSize:'large'}}>Home</MenuItem>
+            <MenuItem onClick={handleClickProduct} style={{ fontFamily:'Suez One', fontSize:'large'}}>Products</MenuItem>
             <MenuItem style={{ fontFamily:'Suez One', fontSize:'large'}}>Services</MenuItem>
             <MenuItem style={{ fontFamily:'Suez One', fontSize:'large'}}>Event</MenuItem>
             <MenuItem style={{ fontFamily:'Suez One', fontSize:'large'}}>Contact</MenuItem>
@@ -182,8 +226,12 @@ const NavBar = () =>{
                 inputProps={{ 'aria-label': 'search' }}
               />
             </div>
-              <IconButton aria-label="show 4 new mails" color="inherit">
-                <Badge badgeContent={4} color="secondary">
+
+            
+            {/* Check if display user menu or non-user menu */}
+            {loggedIn ? ( <div style={{display:"flex"}}>
+              <IconButton aria-label="show number of product in cart" color="inherit">
+                <Badge badgeContent={cart} color="secondary">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
@@ -202,6 +250,18 @@ const NavBar = () =>{
               >
                 <AccountCircle />
               </IconButton>
+              </div>
+            ) : ( <div style={{display:"flex"}}>
+              <Button onClick={()=> history.push('/login')} color="inherit"><b>Login</b></Button>
+              <Button onClick={()=> history.push('/register')} color="inherit">Register</Button>
+              </div>
+            )}
+              
+
+
+             
+
+
             </div>
 
             <div className={classes.sectionMobile}>
@@ -214,9 +274,9 @@ const NavBar = () =>{
               >
                 <MoreIcon />
               </IconButton>
-            </div>
         {renderMobileMenu}
         {renderMenu}
+            </div>
           </Toolbar>
         </AppBar>
       </div>

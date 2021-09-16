@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Grid, List, ListItemText, ListItem } from "@material-ui/core";
+import { Typography, Grid, List, ListItem } from "@material-ui/core";
 import MultilineChartRoundedIcon from '@material-ui/icons/MultilineChartRounded';
 import PetsRoundedIcon from '@material-ui/icons/PetsRounded';
 import "./style.css";
@@ -12,6 +12,9 @@ const HallOfFrame =() => {
               Hall of Frame
             </Typography>
             <MultilineChartRoundedIcon fontSize="large" color="secondary"/>
+            <Typography variant="h3" noWrap style={{fontFamily:'Suez One', color:"#FF3D68"}}>
+                Pet of The Year
+            </Typography>
             
             <Grid container spacing={3} className="content">
                 <Grid item xs={12} md={6} lg={6}>
