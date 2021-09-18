@@ -1,0 +1,38 @@
+.SortAndSearch{
+    display: flex;
+    margin-bottom: 2.5%;
+}
+.leftGrid{
+    border: 1px solid #FF3D68;
+    border-radius: 10px;
+    padding: 2%;
+    height: fit-content;
+}
+.categories{
+    border-radius: 10px;
+    border: 1.5px dashed #3D087B;
+    box-shadow: 2px 3px rgba(128, 128, 128, 0.849);
+    margin-top: 10%;
+    background-image: linear-gradient(to bottom right, #ff587cb9, #fcfafba4);
+}
+.typo{
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    height: 100%;
+}
+.productCard{
+    transition: transform .3s;
+}
+.productCard:hover {
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Safari 3-8 */
+    transform: scale(1.1); 
+}
+.bestSeller{
+    color: #3D087B;
+    text-align: center;
+}
+.productContainer{
+    background-image: url(http://demo2.themelexus.com/petzen/wp-content/uploads/2020/05/home-1-28.png);
+    background-repeat: no-repeat;
+}

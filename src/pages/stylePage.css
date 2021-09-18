@@ -23,3 +23,11 @@
 .logIn{
     background-image: url(http://demo2.themelexus.com/petzen/wp-content/uploads/2020/05/home-1-28.png);
 }
+
+.cartContainer{
+    color: #3D087B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}

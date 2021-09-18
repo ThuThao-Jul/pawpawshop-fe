@@ -18,7 +18,7 @@ const HallOfFrame =() => {
             
             <Grid container spacing={3} className="content">
                 <Grid item xs={12} md={6} lg={6}>
-                    <img className="image" src="https://i.pinimg.com/564x/32/f2/43/32f24381b05fcf53d8088c98963fe326.jpg" height="473" width="350" alt="" />
+                    <img className="image" src="https://i.pinimg.com/564x/32/f2/43/32f24381b05fcf53d8088c98963fe326.jpg" height="100%" width="74%" alt="" />
                 </Grid>
                 <Grid item xs={12} md={6} lg={5} className="info">
                    <List>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState} from "react";
 import useStyles from "./Style";
 import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Drawer, List, ListItem, Button, Divider} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
@@ -16,22 +16,20 @@ import { userActions } from "../../redux/actions/user.actions";
 const NavBar = () =>{
     const classes = useStyles();
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.userReducer);
-    const loggedIn = user.login
+    const user = useSelector((state) => state.userReducer.data);
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
     const [mobileMainMenu, setMobileMainMenu] = useState(false);
     const history = useHistory();
-    let cart = 0;
-    
+    let cart = 0;    
  
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    if (loggedIn) {
-      cart = user.data.cart.length;
-    }
-  
+    if (user) {
+      cart = user.cart.length;
+    };
+
     const handleClickProduct = () =>{
        history.push('/products')
     }
@@ -42,6 +40,7 @@ const NavBar = () =>{
 
     //for mobile
     const handleProfileMenuOpen = (event) => {
+      console.log(event.currentTarget)
       setAnchorEl(event.currentTarget);
     };
   
@@ -55,7 +54,8 @@ const NavBar = () =>{
     };
 
     const handleLogOut = () => {
-      dispatch(userActions.logOut())
+      dispatch(userActions.logOut());
+      setAnchorEl(null)
     }
   
     const handleMobileMenuOpen = (event) => {
@@ -102,9 +102,9 @@ const NavBar = () =>{
       >
 
       {/* Check if display user menu or non-user menu */}
-       { loggedIn  ? 
+       { user ? 
           ( <div>
-            <MenuItem>
+            <MenuItem onClick={() => history.push('/cart')}>
           <IconButton aria-label= "show number of product in cart" color="inherit">
             <Badge badgeContent={cart} color="secondary">
               <ShoppingCartIcon />
@@ -167,7 +167,7 @@ const NavBar = () =>{
           </IconButton>
         
         <img src="https://i.ibb.co/PMYt7tW/logo.png" alt="logo" width="50" height="50" />
-        <Typography variant="h4" noWrap style={{fontFamily:'Noto Serif'}}>
+        <Typography variant="h5" noWrap style={{fontFamily:'Noto Serif'}}>
             PawPaw
         </Typography>
       <Drawer
@@ -178,6 +178,7 @@ const NavBar = () =>{
         classes={{
           paper: classes.drawerPaper,
         }}
+        style={{width:"0"}}
       >
           
         <div className={classes.drawerHeader}>
@@ -229,8 +230,8 @@ const NavBar = () =>{
 
             
             {/* Check if display user menu or non-user menu */}
-            {loggedIn ? ( <div style={{display:"flex"}}>
-              <IconButton aria-label="show number of product in cart" color="inherit">
+            {user ? ( <div style={{display:"flex"}}>
+              <IconButton aria-label="show number of product in cart" color="inherit" onClick={() => history.push('/cart')}>
                 <Badge badgeContent={cart} color="secondary">
                   <ShoppingCartIcon />
                 </Badge>
@@ -252,8 +253,12 @@ const NavBar = () =>{
               </IconButton>
               </div>
             ) : ( <div style={{display:"flex"}}>
-              <Button onClick={()=> history.push('/login')} color="inherit"><b>Login</b></Button>
-              <Button onClick={()=> history.push('/register')} color="inherit">Register</Button>
+              <Button onClick={()=> history.push('/login')} color="inherit" style={{ fontFamily:'Suez One'}}>
+                <b>Login</b>
+              </Button>
+              <Button onClick={()=> history.push('/register')} color="inherit" style={{ fontFamily:'Suez One'}}>
+                Register
+              </Button>
               </div>
             )}
               
