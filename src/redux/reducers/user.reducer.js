@@ -1,10 +1,12 @@
 import * as types from "../constants/user.constants";
-
-const initialState ={
+const recentData = JSON.parse(localStorage.getItem('loggedInData'))
+const initialState = recentData ? recentData : {
     "loading": false,
     "login": false,
     "data": null,
-    "cart": []
+    "cart": [],
+    "orders": null,
+    "paidOrders": [] //paid orders
 };
 
 const userReducer = (state = initialState, action) => {
@@ -15,14 +17,25 @@ const userReducer = (state = initialState, action) => {
         case types.POST_USER_SUCCESS:
             return {...state,"loading": false, "data": payload };
         case types.POST_USERLOGIN_SUCCESS:
-            return {"loading": false, "login": true, "data": payload.user, "cart": payload.user.cart};
+            state = {"loading": false, "login": true, "data": payload.user, "cart": payload.user.cart};
+            localStorage.setItem('loggedInData', JSON.stringify(state))
+            return state;
         case types.POST_LOGOUT_SUCCESS:
+            localStorage.removeItem('loggedInData')
             return {"loading": false, "login": false, "data": payload};
         case types.POST_ADDTOCART_SUCCESS:
             return {...state,"cart": payload.cart, "data": payload, "loading": false};
         case types.GET_USERPROFILE_SUCCESS:
             return {...state, "loading": false, "data": payload, "login": true, "cart": payload.cart}
-        case types.POST_USER_FAILURE:
+        case types.DELETE_CART_SUCCESS:
+            return {...state, "loading": false, "data": payload, "cart": payload.cart};
+        case types.POST_ORDER_SUCCESS:
+            return {...state, "loading": false, "orders": payload};
+        case types.DELETE_ORDER_SUCCESS:
+            return {...state, "loading": false, "data": payload, "orders": null};
+        case types.PUT_ORDER_SUCCESS:
+            return {...state, "loading": false, "data": payload, "orders": null, "cart": []}
+            case types.POST_USER_FAILURE:
             return state;
         default:
             return state;

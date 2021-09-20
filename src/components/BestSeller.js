@@ -19,8 +19,7 @@ const BestSeller = () => {
     },[dispatch]);
 
     const handleCart= (id) => {
-      // dispatch(userActions.addToCart({"id": id, "quantity": 1}));
-      console.log('add to cart')
+      dispatch(userActions.addToCart({"id": id, "quantity": 1}));
     }
 
     return (
@@ -56,7 +55,7 @@ const BestSeller = () => {
           <Button size="small" color="primary">
             <ShareIcon color="action"/>
           </Button>
-          <Button size="small" color="primary" onClick={handleCart(b._id)}>
+          <Button size="small" color="primary" onClick={()=>handleCart(b._id)}>
             <ShoppingCartIcon  />
           </Button>
         </CardActions>

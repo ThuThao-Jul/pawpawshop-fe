@@ -11,6 +11,7 @@ import "./ProductStyle.css";
 import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "../../redux/actions/product.actions";
 import { useHistory } from "react-router-dom";
+import { userActions } from "../../redux/actions/user.actions";
 
 
 const Products = () => {
@@ -100,6 +101,9 @@ const Products = () => {
     setSelectedIndex(index);
   };
     
+  const handleCart = (id) => {
+    dispatch(userActions.addToCart({"id": id, "quantity": 1}));
+  }
 
     return (
       <Grid container className="productContainer" style={{marginTop:"2%", padding:"1%"}}>
@@ -166,7 +170,7 @@ const Products = () => {
 
         
         {/* Sort by price */}
-        <Grid item xs={12} md={9} style={{padding:"2%", display:"flex", flexDirection:"column"}}>
+        <Grid item xs={12} md={9} style={{display:"flex", flexDirection:"column", paddingLeft:"2%"}}>
           <div className="SortAndSearch">
           <Autocomplete
         {...defaultProps}
@@ -202,22 +206,22 @@ const Products = () => {
               <Typography variant="h6" align="center">I'm on my way...Meow</Typography>
             </Stack>
             ) : (productReducer.products && productReducer.products.map((p) => 
-              <Grid item xs={12} md={6} lg={3} 
+              <Grid item xs={12} md={6} lg={4} 
               key={p._id} 
               className="productCard" 
-              style={{margin:"4%"}}
+              style={{ marginBottom:"4%"}}
               onClick={() => history.push(`/products/${p._id}`)}
               >
-              <Card sx={{ maxWidth: 320 }}>
-          <CardActionArea>
+              <Card sx={{ maxWidth: 280 }}>
+          <CardActionArea style={{height:"380px"}}>
           <CardMedia
             component="img"
-            height="200rem"
+            height="220rem"
             image={p.images[0]}
             alt={p.name}
           />
           <CardContent>
-            <Typography gutterBottom noWrap variant="h4" component="div">
+            <Typography gutterBottom variant="h4" component="div">
               {p.name}
             </Typography>
             <Typography variant="h6">
@@ -229,7 +233,7 @@ const Products = () => {
           <Button size="small" color="primary">
             <ShareIcon color="action"/>
           </Button>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" onClick={()=>handleCart(p._id)}>
             <ShoppingCartIcon />
           </Button>
         </CardActions>

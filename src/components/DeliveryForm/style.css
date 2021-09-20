@@ -1,0 +1,16 @@
+.delivery{
+    /* border: 1px dashed #3D087B; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 35rem;
+    /* border-radius: 10px; */
+}
+.deliveryForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+    width: 70%;
+}

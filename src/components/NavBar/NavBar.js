@@ -12,23 +12,26 @@ import clsx from 'clsx';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../redux/actions/user.actions";
+import ProfilePopup from "../ProfilePopup";
 
 const NavBar = () =>{
     const classes = useStyles();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.userReducer.data);
+    const cart = useSelector((state) => state.userReducer.cart)
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
     const [mobileMainMenu, setMobileMainMenu] = useState(false);
+    const [openProfile, setOpenProfile] = useState(false)
     const history = useHistory();
-    let cart = 0;    
+    // let cart = 0;    
  
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    if (user) {
-      cart = user.cart.length;
-    };
+    // if (user) {
+    //   cart = user.cart.length;
+    // };
 
     const handleClickProduct = () =>{
        history.push('/products')
@@ -48,6 +51,13 @@ const NavBar = () =>{
       setMobileMoreAnchorEl(null);
     };
   
+    const handleProfile = () => {
+      setAnchorEl(null);
+      handleMobileMenuClose();
+      setOpenProfile(!openProfile);
+      console.log('pop up')
+    };
+
     const handleMenuClose = () => {
       setAnchorEl(null);
       handleMobileMenuClose();
@@ -82,7 +92,7 @@ const NavBar = () =>{
         open={isMenuOpen}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+        <MenuItem onClick={handleProfile}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         <Divider />
         <MenuItem onClick={handleLogOut}>Log out</MenuItem>
@@ -106,7 +116,7 @@ const NavBar = () =>{
           ( <div>
             <MenuItem onClick={() => history.push('/cart')}>
           <IconButton aria-label= "show number of product in cart" color="inherit">
-            <Badge badgeContent={cart} color="secondary">
+            <Badge badgeContent={cart.length} color="secondary">
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
@@ -154,7 +164,7 @@ const NavBar = () =>{
       <div className={classes.grow}>
          <AppBar position="static" style={{backgroundColor: "white", color:"#3D087B", fontWeight:"bolder"}}>
           <Toolbar>
-            
+          <ProfilePopup openProfile={openProfile} setOpenProfile={setOpenProfile}/>
                 <div className={classes.sectionMobile}>
           <IconButton
             color="inherit"
@@ -232,7 +242,7 @@ const NavBar = () =>{
             {/* Check if display user menu or non-user menu */}
             {user ? ( <div style={{display:"flex"}}>
               <IconButton aria-label="show number of product in cart" color="inherit" onClick={() => history.push('/cart')}>
-                <Badge badgeContent={cart} color="secondary">
+                <Badge badgeContent={cart.length} color="secondary">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
@@ -284,6 +294,8 @@ const NavBar = () =>{
             </div>
           </Toolbar>
         </AppBar>
+
+        
       </div>
     );
   }
