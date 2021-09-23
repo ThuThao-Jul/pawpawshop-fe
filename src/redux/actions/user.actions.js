@@ -85,7 +85,7 @@ const addToCart = ({id,quantity}) => async (dispatch) => {
         // get current user profile
         const userProfile = await api.get("/user/me");
         console.log('user profile', userProfile)
-        dispatch({ type: types.POST_ADDTOCART_SUCCESS, payload: userProfile.data.data.user})
+        dispatch({ type: types.POST_ADDTOCART_SUCCESS, payload: userProfile.data.data.user});
     } catch (error) {
         toast.error('Please log in to use this feature.');
         dispatch({type: types.POST_ADDTOCART_FAILURE, payload: error});

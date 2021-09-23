@@ -3,7 +3,7 @@ Button, LinearProgress, CardActions } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "../redux/actions/product.actions";
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ShareIcon from '@material-ui/icons/Share';
 import "./Products/ProductStyle.css"
 import { useHistory } from "react-router-dom";
@@ -56,7 +56,7 @@ const BestSeller = () => {
             <ShareIcon color="action"/>
           </Button>
           <Button size="small" color="primary" onClick={()=>handleCart(b._id)}>
-            <ShoppingCartIcon  />
+            <AddShoppingCartIcon  />
           </Button>
         </CardActions>
           </Card>

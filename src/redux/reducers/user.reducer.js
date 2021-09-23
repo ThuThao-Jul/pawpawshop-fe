@@ -1,8 +1,9 @@
 import * as types from "../constants/user.constants";
 const recentData = JSON.parse(localStorage.getItem('loggedInData'))
-const initialState = recentData ? recentData : {
+const token = !!localStorage.getItem('accessToken')
+const initialState = token ? recentData : {
     "loading": false,
-    "login": false,
+    "login": token,
     "data": null,
     "cart": [],
     "orders": null,

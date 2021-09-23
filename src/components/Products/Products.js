@@ -3,7 +3,7 @@ Card, CardActionArea, CardMedia, CardContent, CardActions, Typography, LinearPro
 Stack, Pagination} from "@mui/material";
 import {Button} from "@material-ui/core"
 import ShareIcon from '@material-ui/icons/Share';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import React, {useEffect, useState} from "react";
 import AirbnbSlider from "./SliderStyle";
 import useStyles from "../NavBar/Style";
@@ -210,10 +210,9 @@ const Products = () => {
               key={p._id} 
               className="productCard" 
               style={{ marginBottom:"4%"}}
-              onClick={() => history.push(`/products/${p._id}`)}
               >
               <Card sx={{ maxWidth: 280 }}>
-          <CardActionArea style={{height:"380px"}}>
+          <CardActionArea style={{height:"380px"}} onClick={() => history.push(`/products/${p._id}`)}>
           <CardMedia
             component="img"
             height="220rem"
@@ -234,7 +233,7 @@ const Products = () => {
             <ShareIcon color="action"/>
           </Button>
           <Button size="small" color="primary" onClick={()=>handleCart(p._id)}>
-            <ShoppingCartIcon />
+            <AddShoppingCartIcon />
           </Button>
         </CardActions>
           </Card>

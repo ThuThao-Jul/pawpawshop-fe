@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import useStyles from "./Style";
 import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Drawer, List, ListItem, Button, Divider} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
@@ -32,6 +32,10 @@ const NavBar = () =>{
     // if (user) {
     //   cart = user.cart.length;
     // };
+
+    useEffect(() => {
+      dispatch(userActions.getUserProfile())
+    },[dispatch])
 
     const handleClickProduct = () =>{
        history.push('/products')
@@ -161,7 +165,7 @@ const NavBar = () =>{
   
     //for PC
     return (
-      <div className={classes.grow}>
+      <div className={classes.grow} style={{zIndex:'5'}}>
          <AppBar position="static" style={{backgroundColor: "white", color:"#3D087B", fontWeight:"bolder"}}>
           <Toolbar>
           <ProfilePopup openProfile={openProfile} setOpenProfile={setOpenProfile}/>
