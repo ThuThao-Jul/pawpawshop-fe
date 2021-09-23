@@ -73,7 +73,7 @@ const OrderDetail = () => {
             <ListItemText primary="free" style={{textAlign:"right"}} />
         </ListItem>
         <ListItem disablePadding>
-            <ListItemText primary="Discount" secondary={(user.tier + ' member')} />
+            <ListItemText primary={(user.tier + ' member').toUpperCase()} secondary="discount" />
             <ListItemText primary={order.discount*100 + '%'} style={{textAlign:"right"}} />
         </ListItem>
     </List>

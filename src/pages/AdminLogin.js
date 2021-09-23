@@ -12,7 +12,9 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { adminActions } from "../redux/actions/admin.actions";
+import { useHistory } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -31,14 +33,20 @@ const theme = createTheme();
 
 
 const AdminLogin = () => {
+    const adminLoggedIn = useSelector((state) => state.adminReducer.login);
+    const history = useHistory();
     const dispatch = useDispatch(); 
     const [admin, setAdmin] = useState({
         "email": '',
         "password": ''
     });
 
+    if(adminLoggedIn){
+        history.push('/admin')
+    };
+
     const handleEmail = (e) => {
-        setAdmin({...admin, "email": e.taget.value})
+        setAdmin({...admin, "email": e.target.value})
     }
 
     const handlePass = (e) => {
@@ -47,7 +55,7 @@ const AdminLogin = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+        dispatch(adminActions.postAdminLogIn(admin));
     }
     return (
         <ThemeProvider theme={theme}>

@@ -3,6 +3,7 @@ import Banner from "../components/Banner";
 import Shop from "../components/Shop/Shop";
 import HallOfFrame from "../components/HallOfFrame/HallOfFrame";
 import BestSeller from "../components/BestSeller";
+import NewArrival from "../components/NewArrival";
 
 const HomePage = () => {
     return (
@@ -11,6 +12,7 @@ const HomePage = () => {
             <HallOfFrame />
             <Shop />
             <BestSeller />
+            <NewArrival />
         </div>
     )
 }

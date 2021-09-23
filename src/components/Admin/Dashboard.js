@@ -2,12 +2,15 @@ import React, {useState} from "react";
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import { DashboardItems, EcomItems, Events } from "./MenuItems";
 import { Divider, List, CssBaseline, Box, Toolbar, Typography, 
-    IconButton, Badge} from "@material-ui/core";
+    IconButton, Badge, ListItem, ListItemIcon, ListItemText} from "@material-ui/core";
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
 import MenuIcon from "@material-ui/icons/Menu";
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import OrderDashboard from "./OrderDashboard";
+import { useDispatch } from "react-redux";
+import { adminActions } from "../../redux/actions/admin.actions";
 
 
 
@@ -60,11 +63,16 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   const mdTheme = createTheme();
 
  const DashboardContent = () => {
+     const dispatch = useDispatch();
     const [open, setOpen] = useState(true);
     const toggleDrawer = () => {
       setOpen(!open);
     };
   
+const handleLogOut = (e) => {
+    e.preventDefault();
+    dispatch(adminActions.postAdminLogout())
+};
     return (
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: 'flex' }}>
@@ -123,6 +131,15 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
             <List>{EcomItems}</List>
             <Divider />
             <List>{Events}</List>
+            <Divider />
+            <List>
+               <ListItem button onClick={handleLogOut}>
+                   <ListItemIcon>
+                        <ExitToAppRoundedIcon />
+                   </ListItemIcon>
+                   <ListItemText primary="Log out" />
+               </ListItem>
+            </List>
           </Drawer>
           <Box
             component="main"

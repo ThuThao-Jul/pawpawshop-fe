@@ -1,7 +1,7 @@
 import { Grid, Box, List, ListItemButton, InputBase, Autocomplete, TextField,
-Card, CardActionArea, CardMedia, CardContent, CardActions, Typography, LinearProgress, 
+Card, CardActionArea, CardMedia, CardContent, CardActions, Typography,
 Stack, Pagination} from "@mui/material";
-import {Button} from "@material-ui/core"
+import {Button, CircularProgress} from "@material-ui/core"
 import ShareIcon from '@material-ui/icons/Share';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import React, {useEffect, useState} from "react";
@@ -20,7 +20,7 @@ const Products = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [priceRange, setPriceRange] = useState([0,2000000]);
+  const [priceRange, setPriceRange] = useState([0,700000]);
   const [filter, setFilter] = useState({
     "price": "ascending",
     "category": null,
@@ -28,7 +28,7 @@ const Products = () => {
     "page": 1,
     "limit": 6,
     "from": 0,
-    "to": 2000000,
+    "to": 700000,
   });
   // console.log(priceRange)
   console.log(filter)
@@ -128,8 +128,8 @@ const Products = () => {
 
             {/* Categories */}
             {productReducer.loading ? (
-              <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
-              <LinearProgress />
+              <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2} style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+              <CircularProgress />
               <Typography variant="h6" align="center">I'm on my way...Meow</Typography>
             </Stack>
             ) :(productReducer.categories && <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} className="categories">
@@ -199,10 +199,8 @@ const Products = () => {
          {/* Product cards */}
           <Grid container>
             {productReducer.loading ? (
-              <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
-              <LinearProgress />
-              <LinearProgress />
-              <LinearProgress />
+              <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2} style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+                 <CircularProgress />
               <Typography variant="h6" align="center">I'm on my way...Meow</Typography>
             </Stack>
             ) : (productReducer.products && productReducer.products.map((p) => 

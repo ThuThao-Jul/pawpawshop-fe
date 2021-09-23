@@ -1,5 +1,5 @@
 import { Grid, Stack, Typography, Card, CardActionArea, CardMedia, CardContent, 
-Button, LinearProgress, CardActions } from "@mui/material";
+Button, CardActions } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "../redux/actions/product.actions";
@@ -8,6 +8,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import "./Products/ProductStyle.css"
 import { useHistory } from "react-router-dom";
 import {userActions} from "../redux/actions/user.actions";
+import { CircularProgress } from "@material-ui/core";
 
 const BestSeller = () => {
     const dispatch = useDispatch();
@@ -28,8 +29,8 @@ const BestSeller = () => {
             <Typography variant="h3" className="bestSeller" style={{fontFamily:"Suez One", marginBottom:"3%"}}>BEST SELLERS</Typography>
             </Grid>
         {loading ? (
-            <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
-              <LinearProgress />
+            <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2} style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+              <CircularProgress />
               <Typography variant="h6" align="center">Restocking...Woof</Typography>
             </Stack>
         ) : (  bestSellers && bestSellers.map((b)=>

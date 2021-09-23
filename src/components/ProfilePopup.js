@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Backdrop, Card, CardHeader, 
   Avatar, IconButton, Slider, CardContent, CardActions, 
   Collapse, Box, Typography, CardActionArea, CardMedia, Grid, Fab, Tooltip } from "@material-ui/core";
@@ -9,6 +9,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import { red } from '@mui/material/colors';
 import { useHistory } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import { userActions } from "../redux/actions/user.actions";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -21,25 +23,49 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const marks = [
-  {
-    value: 10,     //equal to min
-    label: 10
-  },
-  {
-    value: 100,    // equal to max
-    label: 100,
-  },
-  {
-    value: 50,       //user's current point
-    label: 50
-  }
-]
+
 
 
 const ProfilePopup = ({openProfile, setOpenProfile}) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userReducer.data)
   const [expanded, setExpanded] = useState(false);
+  let min = 0;
+  let max = 0;
+
+  useEffect(() => {
+     dispatch(userActions.getUserProfile())
+  }, [dispatch])
+
+  if(user.tier === "bronze") {
+    min = 0;
+    max = 800
+  } else if (user.tier === "silver") {
+    min = 800;
+    max = 3500;
+  } else if (user.tier === "gold") {
+    min = 3500;
+    max = 8000
+  } else {
+    min = 8000;
+    max = 15000
+  }
+
+  const marks = [
+    {
+      value: min,     //equal to min
+      label: min
+    },
+    {
+      value: max,    // equal to max
+      label: max,
+    },
+    {
+      value: user.point,       //user's current point
+      label: user.point
+    }
+  ]
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -75,8 +101,8 @@ const ProfilePopup = ({openProfile, setOpenProfile}) => {
             <CloseIcon />
           </IconButton>
         }
-        title="Thao"
-        subheader="Silver member"
+        title={user.name}
+        subheader={user.tier + ' member'}
       />
       <Box width={400} style={{marginLeft:"12%"}}>
       <Slider 
@@ -84,13 +110,13 @@ const ProfilePopup = ({openProfile, setOpenProfile}) => {
       marks={marks} 
       disabled 
       style={{color:"#3D087B"}} 
-      defaultValue={50} 
+      value={user.point} 
       aria-label="Default"
-      min={10}
-      max={200}
+      min={min}
+      max={max}
       />
         <Typography variant="body2" style={{textAlign:"right"}}>
-          <b>50</b> more points to become Gold Member
+          <b>{max - user.point}</b> more points to advance to the next tier.
         </Typography>
       </Box>
       {/* <CardContent>
