@@ -25,7 +25,6 @@ const getRevenue = () => async (dispatch) => {
     dispatch({ type: types.POST_ADMINLOGIN_REQUEST, payload: null});
     
     try {
-        adminApi.defaults.headers.common["authorization"]= "Bearer " + localStorage.getItem('adminToken');
         let url = '/admin/revenue';
         console.log(url)
         const res = await adminApi.get(url);
