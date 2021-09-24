@@ -29,7 +29,7 @@ const adminReducer = (state = initialState, action) => {
             localStorage.removeItem('adminData');
             return {"loading": false, "login": false, "data": payload}
         case types.POST_ADMINLOGIN_FAILURE:
-            return state
+            return {...state,"loading": false, "login": false, "data": payload}
         default:
             return state;
     }

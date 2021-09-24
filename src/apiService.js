@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const token = localStorage.getItem("adminToken") ? localStorage.getItem("adminToken") : localStorage.getItem('accessToken')
-console.log('token', token);
+// const token = localStorage.getItem("adminToken") ? localStorage.getItem("adminToken") : localStorage.getItem('accessToken')
+// console.log('token', token);
 const api= axios.create({
     baseURL: "http://localhost:3000/api",
     headers: {
         "Content-Type": "application/json",
-        "authorization": "Bearer " + token
+        "authorization": "Bearer " +  localStorage.getItem('accessToken')
     },
 });
 

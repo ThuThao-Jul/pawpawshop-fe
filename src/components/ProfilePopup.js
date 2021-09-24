@@ -33,18 +33,19 @@ const ProfilePopup = ({openProfile, setOpenProfile}) => {
   const [expanded, setExpanded] = useState(false);
   let min = 0;
   let max = 0;
+  let marks =[]
 
   useEffect(() => {
      dispatch(userActions.getUserProfile())
   }, [dispatch])
 
-  if(user.tier === "bronze") {
+  if(user && user.tier === "bronze") {
     min = 0;
     max = 800
-  } else if (user.tier === "silver") {
+  } else if (user && user.tier === "silver") {
     min = 800;
     max = 3500;
-  } else if (user.tier === "gold") {
+  } else if (user && user.tier === "gold") {
     min = 3500;
     max = 8000
   } else {
@@ -52,20 +53,22 @@ const ProfilePopup = ({openProfile, setOpenProfile}) => {
     max = 15000
   }
 
-  const marks = [
-    {
-      value: min,     //equal to min
-      label: min
-    },
-    {
-      value: max,    // equal to max
-      label: max,
-    },
-    {
-      value: user.point,       //user's current point
-      label: user.point
-    }
-  ]
+  if(user) {
+    marks = [
+      // {
+      //   value: min,     //equal to min
+      //   label: min
+      // },
+      {
+        value: max,    // equal to max
+        label: max,
+      },
+      {
+        value: user.point,       //user's current point
+        label: user.point
+      }
+    ]
+  }
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -80,14 +83,12 @@ const ProfilePopup = ({openProfile, setOpenProfile}) => {
     history.push('/pet/create');
   }
 
-    return (
+    return ( user &&
         <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={openProfile}
         style={{zIndex:"10"}}
       >
-
-
 
 <Card sx={{ maxWidth: 345 }} style={{width:"35%"}}>
       <CardHeader
@@ -163,6 +164,7 @@ const ProfilePopup = ({openProfile, setOpenProfile}) => {
         </CardContent>
       </CardActionArea>
     </Card>
+
     </Grid>
 
     </Grid>

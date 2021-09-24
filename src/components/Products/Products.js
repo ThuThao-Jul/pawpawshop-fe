@@ -117,8 +117,8 @@ const Products = () => {
             <AirbnbSlider
               ThumbComponent={AirbnbThumbComponent}
               getAriaLabel={(index) => (index === 0 ? 'Minimum price' : 'Maximum price')}
-              defaultValue={[0, 2000000]}
-              max={2000000}
+              defaultValue={[0, 700000]}
+              max={700000}
               min={0}
               onChange={handlePriceChange}
             />
