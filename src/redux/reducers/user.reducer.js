@@ -22,7 +22,8 @@ const userReducer = (state = initialState, action) => {
             localStorage.setItem('loggedInData', JSON.stringify(state))
             return state;
         case types.POST_LOGOUT_SUCCESS:
-            localStorage.removeItem('loggedInData')
+            localStorage.removeItem('loggedInData');
+            localStorage.removeItem('accessToken');
             return {"loading": false, "login": false, "data": payload};
         case types.POST_ADDTOCART_SUCCESS:
             return {...state,"cart": payload.cart, "data": payload, "loading": false};

@@ -1,15 +1,17 @@
 import axios from "axios";
 
-const api= axios.create({
+// const token = localStorage.getItem("adminToken") ? localStorage.getItem("adminToken") : localStorage.getItem('accessToken')
+// console.log('token', token);
+const adminApi= axios.create({
     baseURL: "http://localhost:3000/api",
     headers: {
         "Content-Type": "application/json",
-        "authorization": "Bearer " +  localStorage.getItem('accessToken')
+        "authorization": "Bearer " +  localStorage.getItem('adminToken')
     },
 });
 
 
-api.interceptors.request.use(
+adminApi.interceptors.request.use(
     (request) => {
         console.log("Starting request", request);
         return request;
@@ -20,7 +22,7 @@ api.interceptors.request.use(
 );
 
 
-api.interceptors.response.use(
+adminApi.interceptors.response.use(
     (response) => {
         console.log("Response", response);
         return response;
@@ -32,4 +34,4 @@ api.interceptors.response.use(
     }
 );
 
-export default api;
+export default adminApi;

@@ -25,10 +25,10 @@ const postLogIn = (user) => async (dispatch)=> {
     try {
         let url = "/auth/login";
         const res = await api.post(url, user);
-        console.log("success", res);
         localStorage.setItem('accessToken', res.data.data.accessToken);
-        api.defaults.headers.common["authorization"]= "Bearer " + res.data.data.accessToken;
-        console.log("api", res.data.data.accessToken)
+        api.defaults.headers.authorization= "Bearer " + res.data.data.accessToken;
+        console.log("api", res.data.data.accessToken);
+        // console.log('api header', api.defaults.headers.common["authorization"])
         toast.success('Logged in successfully. Enjoy shopping at PawPaw <3');
         dispatch({ type: types.POST_USERLOGIN_SUCCESS, payload: res.data.data});
     } catch (error) {
@@ -41,7 +41,7 @@ const getUserProfile= () => async (dispatch) => {
     dispatch({ type: types.POST_USER_REQUEST, payload: null});
 
     try {
-        api.defaults.headers.common["authorization"]= "Bearer " + localStorage.getItem('accessToken')
+        // api.defaults.headers.common["authorization"]= "Bearer " + localStorage.getItem('accessToken')
         let url = "/user/me";
         console.log(url);
         const res = await api.get(url);
@@ -57,7 +57,7 @@ const logOut = () => async (dispatch) => {
 
     try {
         localStorage.removeItem('accessToken');
-        delete api.defaults.headers.common["authorization"];
+        delete api.defaults.headers.authorization;
         toast.success('Logged out successfully. See you again.');
         dispatch({type: types.POST_LOGOUT_SUCCESS, payload: null});
     } catch (error) {
