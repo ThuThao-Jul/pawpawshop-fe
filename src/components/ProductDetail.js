@@ -1,4 +1,4 @@
-import { Button, Divider, Grid, Typography, Stack, LinearProgress } from "@mui/material";
+import { Button, Divider, Grid, Typography, Stack } from "@mui/material";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +6,7 @@ import { Carousel } from "react-responsive-carousel";
 import { useParams } from "react-router";
 import { productActions } from "../redux/actions/product.actions";
 import { userActions } from "../redux/actions/user.actions";
+import { CircularProgress } from "@material-ui/core";
 
 
 const ProductDetail = () => {
@@ -39,12 +40,14 @@ const ProductDetail = () => {
         <Grid container>
             {/* Product images */}
             {!product ? (
+                <Grid container>
                 <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
-                <LinearProgress />
+                <CircularProgress />
                 <Typography variant="h6" align="center">I'm on my way...Meow</Typography>
               </Stack>
+                 </Grid>
             ) : (
-                <div style={{display:"flex"}}>
+                <Grid container>
                 <Grid item xs={12} md={6} style={{margin:"3%"}}>
             <Carousel showArrows={true}>
                 {product && product.images.map((i) => 
@@ -85,7 +88,7 @@ const ProductDetail = () => {
                 <Typography variant="h6" style={{fontFamily:"Suez One"}}>Description:</Typography>
                 <Typography variant="body1">{product.description}</Typography>
             </Grid>
-            </div>
+            </Grid>
                 )}
         </Grid>
     )

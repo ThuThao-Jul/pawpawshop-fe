@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api= axios.create({
-    baseURL: "http://localhost:3000/api",
+    baseURL: "https://pawpaw2021.herokuapp.com/api",
     headers: {
         "Content-Type": "application/json",
         "authorization": "Bearer " +  localStorage.getItem('accessToken')
