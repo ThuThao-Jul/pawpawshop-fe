@@ -10,6 +10,7 @@ import CartPage from "./pages/CartPage";
 import CreateNewPet from "./pages/CreateNewPet";
 import HomePage from "./pages/HomePage";
 import LogIn from "./pages/LogIn";
+import MyAccount from "./pages/MyAccount";
 import OrderPage from "./pages/OrderPage";
 import ProductPage from "./pages/ProductPage";
 import Register from "./pages/Register";
@@ -33,6 +34,7 @@ function App() {
         <Route exact path="/order" component={user ? OrderPage : LogIn} />
         <Route exact path="/cart" component={user ? CartPage : LogIn} />
         <Route exact path="/pet/create" component={user ? CreateNewPet : LogIn} />
+        <Route exact path="/account" component={user ? MyAccount : LogIn} />
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/admin/login" component={AdminLogin} />
       </Switch>

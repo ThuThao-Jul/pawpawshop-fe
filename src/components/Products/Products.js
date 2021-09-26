@@ -48,7 +48,11 @@ const Products = () => {
 
   const handleSort=(e)=>{
     e.preventDefault();
-    setFilter({...filter, "price": e.target.value})
+    if (e.target.value === "descending") {
+      setFilter({...filter, "price": '-price'})
+    } else {
+      setFilter({...filter, "price": 'price'})
+    }
   }
 
   const handlePage=(e,page)=>{

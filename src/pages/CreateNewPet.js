@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import {RadioGroup, FormControlLabel, Radio, Typography, 
     Grid, TextField, FormLabel, IconButton, Button } from "@material-ui/core";
 import { PhotoCamera } from "@material-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { petAction } from "../redux/actions/pet.actions";
 
   
 const CreateNewPet = () => {
-  // const [value, setValue] = useState(new Date());
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userReducer.data);
+  let userId = '';
   const [pet, setPet] = useState({
     "type":'dog',
     "breed": '',
@@ -21,11 +25,16 @@ const CreateNewPet = () => {
   });
   console.log('pet', pet);
 
+  if (user){
+    userId = user._id;
+  }
+
   const myWidget = window.cloudinary.createUploadWidget({
     cloudName: 'dmgak3gru', 
     uploadPreset: 'jn245z5u'}, (error, result) => { 
       if (!error && result && result.event === "success") { 
         console.log('Done! Here is the image info: ', result.info); 
+        setPet({...pet, "image": result.info.url})
       }
     }
   )
@@ -48,7 +57,41 @@ const CreateNewPet = () => {
 
   const handleName = (e) => {
     setPet({...pet, "name": e.target.value})
-  }
+  };
+
+  const handleAge = (e) => {
+    setPet({...pet, "age": e.target.value})
+  };
+
+  const handleGender = (e) => {
+    if(e.target.value === "male"){
+      setPet({...pet, "male": true})
+    } else {
+      setPet({...pet, "male": false})
+    }
+  };
+
+  const handleDescription = (e) => {
+    setPet({...pet, "description": e.target.value})
+  };
+
+  const handleDeworming = (e) => {
+    setPet({...pet, "dewormingDate": e.target.value})
+  };
+
+  const handleVaccination = (e) => {
+    setPet({...pet, "vaccinationRecord": e.target.value})
+  };
+
+  const handleMedical = (e) => {
+    setPet({...pet, "medicalRecord": e.target.value})
+  };
+
+  const handleNewPet = (e) => {
+    e.preventDefault();
+    console.log('submit new pet')
+    dispatch(petAction.postNewPet({"pet": pet}, userId));
+  };
 
     return (
         <div style={{width:"50%", position:"relative", left:"25%"}}>
@@ -56,7 +99,7 @@ const CreateNewPet = () => {
                 Create a new pet
             </Typography>
     <Grid container style={{display:"flex", justifyContent:"center"}} >
-        <form autoComplete="off" className="createPetForm">
+        <form autoComplete="off" className="createPetForm" onSubmit={handleNewPet}>
             <Typography variant="subtitle2">1. What is your type of pet?</Typography>
     <RadioGroup 
           name="use-radio-group" 
@@ -98,7 +141,7 @@ const CreateNewPet = () => {
         <Typography variant="subtitle2">2. Your pet information</Typography>
             <TextField required id="name" label="Name" type='text' variant="outlined" onChange={handleName} fullWidth />
             <div style={{margin:"4% 0 4% 0", display:"flex", justifyContent:"space-between"}}>
-            <TextField required id="age" label="Age" type='number' variant="outlined" placeholder="0 if your pet is under 1 year-old." />
+            <TextField required id="age" label="Age" type='number' variant="outlined" placeholder="0 if your pet is under 1 year-old." onChange={handleAge} />
             <TextField
               variant="outlined"
               id="date"
@@ -113,12 +156,12 @@ const CreateNewPet = () => {
             />
             </div>
             <FormLabel component="legend">Gender</FormLabel>
-      <RadioGroup row aria-label="gender" name="row-radio-buttons-group" defaultValue="female">
+      <RadioGroup row aria-label="gender" name="row-radio-buttons-group" defaultValue="female" onChange={handleGender}>
         <FormControlLabel value="female" control={<Radio />} label="Female" />
         <FormControlLabel value="male" control={<Radio />} label="Male" />
       </RadioGroup>
 
-      <TextField multiline fullWidth id="description" variant="outlined" label="Description" type="text" placeholder="Interests, characteristic..."/>
+      <TextField multiline fullWidth id="description" variant="outlined" label="Description" type="text" placeholder="Interests, characteristic..." onChange={handleDescription}/>
        
       <div style={{margin: "4% 0 2% 0"}}>
       <FormLabel component="legend">Upload image</FormLabel>
@@ -136,6 +179,7 @@ const CreateNewPet = () => {
         type="date"
         defaultValue={new Date()}
         sx={{ width: 220 }}
+        onChange={handleDeworming}
         InputLabelProps={{
         shrink: true,
         }}
@@ -147,6 +191,7 @@ const CreateNewPet = () => {
         type="date"
         defaultValue={new Date()}
         sx={{ width: 220 }}
+        onChange={handleVaccination}
         InputLabelProps={{
         shrink: true,
         }}
@@ -161,6 +206,7 @@ const CreateNewPet = () => {
         type='text' 
         variant="outlined" 
         placeholder="anamnesis" 
+        onChange={handleMedical}
     />
     </div>
     

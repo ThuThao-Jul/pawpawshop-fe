@@ -65,6 +65,7 @@ const NavBar = () =>{
     const handleMenuClose = () => {
       setAnchorEl(null);
       handleMobileMenuClose();
+      history.push('/account')
     };
 
     const handleLogOut = () => {
