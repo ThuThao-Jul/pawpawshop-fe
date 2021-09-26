@@ -34,7 +34,7 @@ const BestSeller = () => {
               <Typography variant="h6" align="center">Restocking...Woof</Typography>
             </Stack>
         ) : (  bestSellers && bestSellers.map((b)=>
-            <Grid item xs={6} md={3} key={b._id} className="productCard">
+            <Grid item xs={12} md={3} key={b._id} className="productCard">
             <Card sx={{ maxWidth: 280 }}>
           <CardActionArea onClick={() => history.push(`/products/${b._id}`)}>
           <CardMedia
@@ -44,10 +44,10 @@ const BestSeller = () => {
             alt={b.name}
           />
           <CardContent>
-            <Typography gutterBottom noWrap variant="h4" component="div">
+            <Typography gutterBottom variant="h6" component="div" align="center" noWrap>
               {b.name}
             </Typography>
-            <Typography variant="h6">
+            <Typography variant="body2" align="center" style={{color:"gray"}}>
               <b>{new Intl.NumberFormat('de-DE').format(b.price)} VND</b>
             </Typography>
           </CardContent>

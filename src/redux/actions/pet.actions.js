@@ -19,4 +19,16 @@ const postNewPet = ({pet}, id) => async (dispatch) => {
     }
 };
 
-export const petAction = { postNewPet}
+const getAllPets = (id) => async (dispatch) => {
+    dispatch({type: types.POST_PET_REQUEST, payload: null});
+
+    try {
+        let url=`/pet?ownerId=${id}`;
+        const res = await api.get(url);
+        dispatch({type: types.GET_PET_SUCCESS, payload: res.data.data.pets})
+    } catch (error) {
+        dispatch({type: types.GET_PET_FAILURE, payload: error})
+    }
+}
+
+export const petAction = { postNewPet, getAllPets}

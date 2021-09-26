@@ -77,7 +77,6 @@ const DeliveryForm = () => {
       disablePortal
       id="payment-method"
       options={["Cash", "Internet banking", "Visa"]}
-      sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params} label="Payment method" required/>}
     />
 

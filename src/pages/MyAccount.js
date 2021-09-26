@@ -3,6 +3,7 @@ import { red } from '@mui/material/colors';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import {Card, CardHeader, Avatar, Box, Slider, Typography, CardContent, Grid, List, ListItemText} from "@material-ui/core"
 import { useSelector } from "react-redux";
+import AccountTab from "../components/AccountTab";
 
 const MyAccount = () => {
     const user = useSelector((state) => state.userReducer.data);
@@ -71,14 +72,16 @@ const MyAccount = () => {
           </Typography>
           <List>
               <ListItemText>
-                  Chúc Chích is gonna vaccination in the next 3 days.
+                  Lulu is gonna have vaccination in the next 3 days.
               </ListItemText>
               <ListItemText>
-                  Chúc Chích is gonna vaccination in the next 3 days.
+                  Lulu is gonna have vaccination in the next 3 days.
               </ListItemText>
           </List>
       </CardContent>
       </Card>
+
+      <AccountTab />
       </Grid>
     )
 };

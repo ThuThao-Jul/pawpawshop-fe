@@ -41,7 +41,10 @@ const ProductDetail = () => {
             {/* Product images */}
             {!product ? (
                 <Grid container>
-                <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+                <Stack 
+                sx={{ width: '100%', color: 'grey.500' }} 
+                spacing={2} 
+                style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
                 <CircularProgress />
                 <Typography variant="h6" align="center">I'm on my way...Meow</Typography>
               </Stack>

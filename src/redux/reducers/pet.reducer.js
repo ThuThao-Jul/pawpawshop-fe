@@ -11,6 +11,8 @@ const petReducer = (state=initialState, action) => {
             return {...state, "loading": true};
         case types.POST_PET_SUCCESS:
             return {...state, "loading": false, "data": payload};
+        case types.GET_PET_SUCCESS:
+            return {...state, "loading": false, "data": payload}
         case types.POST_PET_FAILURE:
             return state;
         default:

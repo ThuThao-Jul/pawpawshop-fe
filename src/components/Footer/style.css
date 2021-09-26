@@ -6,6 +6,12 @@
     background-size: cover;
 }
 
+@media screen and (max-width: 800px) {
+    .footerContainer {
+        padding: 30% 3% 3% 3%;
+    }
+}
+
 .socialIcons{
     width: 80%;
     height: 25px;

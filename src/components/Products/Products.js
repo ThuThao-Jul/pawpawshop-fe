@@ -1,9 +1,11 @@
 import { Grid, Box, List, ListItemButton, InputBase, Autocomplete, TextField,
 Card, CardActionArea, CardMedia, CardContent, CardActions, Typography,
 Stack, Pagination} from "@mui/material";
-import {Button, CircularProgress} from "@material-ui/core"
+import {Button, CircularProgress, IconButton, Collapse} from "@material-ui/core"
 import ShareIcon from '@material-ui/icons/Share';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { styled } from '@mui/material/styles';
 import React, {useEffect, useState} from "react";
 import AirbnbSlider from "./SliderStyle";
 import useStyles from "../NavBar/Style";
@@ -13,16 +15,28 @@ import { productActions } from "../../redux/actions/product.actions";
 import { useHistory } from "react-router-dom";
 import { userActions } from "../../redux/actions/user.actions";
 
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
 const Products = () => {
   const productReducer = useSelector((state) => state.productReducer);
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const [expanded, setExpanded] = useState(false);
+  const [category, setCategory] = useState('ALL')
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [priceRange, setPriceRange] = useState([0,700000]);
   const [filter, setFilter] = useState({
-    "price": "ascending",
+    "price": null,
     "category": null,
     "name": null,
     "page": 1,
@@ -44,6 +58,11 @@ const Products = () => {
   const defaultProps = {
     options: ["ascending", "descending"],
     getOptionLabel: (option) => option,
+  };
+
+  const handleExpandClick = (e) => {
+    e.preventDefault();
+    setExpanded(!expanded);
   };
 
   const handleSort=(e)=>{
@@ -80,6 +99,8 @@ const Products = () => {
   const handleCategory = (e)  => {
     console.log(e.target.title)
     e.preventDefault();
+    setCategory(e.target.title);
+    setExpanded(!expanded);
     if(e.target.title === "all"){
       setFilter({...filter, "category": null})
     } else
@@ -140,16 +161,60 @@ const Products = () => {
                <List component="nav" aria-label="categories">
                    <Typography variant="h5" className="typo" style={{fontFamily:"Suez One"}}>CATEGORIES</Typography>
                 <hr />
+
+                <div className="categoriesDesktop">
                 <ListItemButton
                   selected={selectedIndex === 0}
                   onClick={(event) => handleListItemClick(event, 0)}
                 > 
                 <div style={{height:"100%", width:"100%", paddingLeft:"5%"}}>
                   <p title="all" onClick={handleCategory} style={{fontFamily:"Roboto"}}>
-                  All
+                  ALL
                   </p>
                 </div>
                 </ListItemButton>
+                </div>
+               
+               <div className="categoriesDesktop">
+               {productReducer.categories.map((c) => 
+            <ListItemButton
+            selected={selectedIndex === (productReducer.categories.indexOf(c)+1)}
+            onClick={(event) => handleListItemClick(event, productReducer.categories.indexOf(c)+1)}
+          >
+            <div style={{height:"100%", width:"100%", paddingLeft:"5%"}}>
+            <p title={c} onClick={handleCategory} style={{fontFamily:"Roboto"}}>
+              {c.toUpperCase()}
+            </p>
+            </div>
+          </ListItemButton>
+          )}
+          </div>
+
+          {/* // For mobile */}
+          <div className="categoriesMobile">
+        <div style={{display:"flex", paddingLeft:"10%"}}>
+        <Typography variant="h6" noWrap> {category.toUpperCase()} </Typography>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
+        </div>
+
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <ListItemButton
+                  selected={selectedIndex === 0}
+                  onClick={(event) => handleListItemClick(event, 0)}
+            > 
+                <div style={{height:"100%", width:"100%", paddingLeft:"5%"}}>
+                  <p title="all" onClick={handleCategory} style={{fontFamily:"Roboto"}}>
+                  ALL
+                  </p>
+                </div>
+            </ListItemButton>
 
                {productReducer.categories.map((c) => 
                
@@ -164,6 +229,8 @@ const Products = () => {
             </div>
           </ListItemButton>
           )}
+        </Collapse>
+        </div>
 
 
               </List>
@@ -214,7 +281,7 @@ const Products = () => {
               style={{ marginBottom:"4%"}}
               >
               <Card sx={{ maxWidth: 280 }}>
-          <CardActionArea style={{height:"380px"}} onClick={() => history.push(`/products/${p._id}`)}>
+          <CardActionArea style={{height:"330px"}} onClick={() => history.push(`/products/${p._id}`)}>
           <CardMedia
             component="img"
             height="220rem"
@@ -222,10 +289,10 @@ const Products = () => {
             alt={p.name}
           />
           <CardContent>
-            <Typography gutterBottom variant="h4" component="div">
+            <Typography gutterBottom variant="h6" component="div" align="center" noWrap>
               {p.name}
             </Typography>
-            <Typography variant="h6">
+            <Typography variant="body2" align="center" style={{color:"gray"}}>
               <b>{new Intl.NumberFormat('de-DE').format(p.price)} VND</b>
             </Typography>
           </CardContent>

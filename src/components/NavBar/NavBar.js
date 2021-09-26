@@ -9,7 +9,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import clsx from 'clsx';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../redux/actions/user.actions";
 import ProfilePopup from "../ProfilePopup";
@@ -150,10 +150,10 @@ const NavBar = () =>{
          : 
           (<div>
             <MenuItem>
-          <Button onClick={()=> history.push('/login')} color="inherit"><b>Login</b></Button>
+          <Button component={Link} to="/login" color="inherit"><b>Login</b></Button>
         </MenuItem>
         <MenuItem>
-          <Button onClick={()=> history.push('/register')} color="inherit">Register</Button>
+          <Button component={Link} to="/register" color="inherit">Register</Button>
         </MenuItem>
         </div>)}
      

@@ -1,12 +1,12 @@
 .containerShop{
-    height: 500px;
+    /* height: 500px; */
     margin-bottom: 5%;
 }
 .shop{
     border: 1px solid blue
 }
 .product{
-    height: 505px;
+    height: 30rem;
     background-image: url(https://gcdn.pbrd.co/images/V25xk8NsGE8P.jpg);
     background-size: contain;
     background-repeat: no-repeat;
@@ -16,7 +16,7 @@
 }
 
 .service{
-    height: 505px;
+    height: 30rem;
     background-image: url(https://gcdn.pbrd.co/images/YYcEeR4oaE0X.png);
     background-size: cover;
     background-repeat: no-repeat;
