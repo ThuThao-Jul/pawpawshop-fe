@@ -8,7 +8,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import { red } from '@mui/material/colors';
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import { userActions } from "../redux/actions/user.actions";
 
@@ -27,7 +27,6 @@ const ExpandMore = styled((props) => {
 
 
 const ProfilePopup = ({openProfile, setOpenProfile}) => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer.data)
   const [expanded, setExpanded] = useState(false);
@@ -80,7 +79,6 @@ const ProfilePopup = ({openProfile, setOpenProfile}) => {
     
   const handleClickPet = () => {
     setOpenProfile(false);
-    history.push('/pet/create');
   }
 
     return ( user &&
@@ -140,7 +138,7 @@ const ProfilePopup = ({openProfile, setOpenProfile}) => {
           <div style={{display:"flex", justifyContent:"space-between", marginBottom:'4%'}}>
           <Typography variant="subtitle2">Your family has 3 members.</Typography>
         <Tooltip title="Add" placement="left-start">
-          <Fab color="primary" aria-label="add" size="small" onClick={handleClickPet}>
+          <Fab color="primary" aria-label="add" size="small" component={Link} to='/pet/create' onClick={handleClickPet}>
             <AddIcon />
           </Fab>
         </Tooltip>

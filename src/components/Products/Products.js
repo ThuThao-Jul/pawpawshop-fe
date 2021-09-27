@@ -12,7 +12,7 @@ import useStyles from "../NavBar/Style";
 import "./ProductStyle.css";
 import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "../../redux/actions/product.actions";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { userActions } from "../../redux/actions/user.actions";
 
 const ExpandMore = styled((props) => {
@@ -30,7 +30,6 @@ const Products = () => {
   const productReducer = useSelector((state) => state.productReducer);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
   const [expanded, setExpanded] = useState(false);
   const [category, setCategory] = useState('ALL')
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -281,7 +280,7 @@ const Products = () => {
               style={{ marginBottom:"4%"}}
               >
               <Card sx={{ maxWidth: 280 }}>
-          <CardActionArea style={{height:"330px"}} onClick={() => history.push(`/products/${p._id}`)}>
+          <CardActionArea style={{height:"330px"}} component={Link} to={`/products/${p._id}`}>
           <CardMedia
             component="img"
             height="220rem"

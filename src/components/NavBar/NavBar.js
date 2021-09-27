@@ -9,7 +9,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import clsx from 'clsx';
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../redux/actions/user.actions";
 import ProfilePopup from "../ProfilePopup";
@@ -23,7 +23,6 @@ const NavBar = () =>{
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
     const [mobileMainMenu, setMobileMainMenu] = useState(false);
     const [openProfile, setOpenProfile] = useState(false)
-    const history = useHistory();
     // let cart = 0;    
  
     const isMenuOpen = Boolean(anchorEl);
@@ -37,13 +36,6 @@ const NavBar = () =>{
       dispatch(userActions.getUserProfile())
     },[dispatch])
 
-    const handleClickProduct = () =>{
-       history.push('/products')
-    }
-
-    const handleClickHome=()=>{
-      history.push('/')
-    }
 
     //for mobile
     const handleProfileMenuOpen = (event) => {
@@ -65,7 +57,6 @@ const NavBar = () =>{
     const handleMenuClose = () => {
       setAnchorEl(null);
       handleMobileMenuClose();
-      history.push('/account')
     };
 
     const handleLogOut = () => {
@@ -98,7 +89,7 @@ const NavBar = () =>{
         onClose={handleMenuClose}
       >
         <MenuItem onClick={handleProfile}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        <MenuItem component={Link} to='/account' onClick={handleMenuClose}>My account</MenuItem>
         <Divider />
         <MenuItem onClick={handleLogOut}>Log out</MenuItem>
       </Menu>
@@ -119,7 +110,7 @@ const NavBar = () =>{
       {/* Check if display user menu or non-user menu */}
        { user ? 
           ( <div>
-            <MenuItem onClick={() => history.push('/cart')}>
+            <MenuItem component={Link} to='/cart'>
           <IconButton aria-label= "show number of product in cart" color="inherit">
             <Badge badgeContent={cart.length} color="secondary">
               <ShoppingCartIcon />
@@ -202,8 +193,8 @@ const NavBar = () =>{
           </IconButton>
         </div>
         <List>
-              <ListItem button onClick={handleClickHome}>Home</ListItem>
-              <ListItem button onClick={handleClickProduct}>Products</ListItem>
+              <ListItem butto component={Link} to='/'>Home</ListItem>
+              <ListItem button component={Link} to='/products'>Products</ListItem>
               <ListItem button>Services</ListItem>
               <ListItem button>Event</ListItem>
               <ListItem button>Contact</ListItem>
@@ -219,8 +210,8 @@ const NavBar = () =>{
             </Typography>
             
             <div className={classes.sectionDesktop} style={{marginLeft:'4%'}}>
-            <MenuItem onClick={handleClickHome} style={{ fontFamily:'Suez One', fontSize:'large'}}>Home</MenuItem>
-            <MenuItem onClick={handleClickProduct} style={{ fontFamily:'Suez One', fontSize:'large'}}>Products</MenuItem>
+            <MenuItem component={Link} to='/' style={{ fontFamily:'Suez One', fontSize:'large'}}>Home</MenuItem>
+            <MenuItem component={Link} to='/products' style={{ fontFamily:'Suez One', fontSize:'large'}}>Products</MenuItem>
             <MenuItem style={{ fontFamily:'Suez One', fontSize:'large'}}>Services</MenuItem>
             <MenuItem style={{ fontFamily:'Suez One', fontSize:'large'}}>Event</MenuItem>
             <MenuItem style={{ fontFamily:'Suez One', fontSize:'large'}}>Contact</MenuItem>
@@ -246,7 +237,7 @@ const NavBar = () =>{
             
             {/* Check if display user menu or non-user menu */}
             {user ? ( <div style={{display:"flex"}}>
-              <IconButton aria-label="show number of product in cart" color="inherit" onClick={() => history.push('/cart')}>
+              <IconButton aria-label="show number of product in cart" color="inherit" component={Link} to='/cart'>
                 <Badge badgeContent={cart.length} color="secondary">
                   <ShoppingCartIcon />
                 </Badge>
@@ -268,10 +259,10 @@ const NavBar = () =>{
               </IconButton>
               </div>
             ) : ( <div style={{display:"flex"}}>
-              <Button onClick={()=> history.push('/login')} color="inherit" style={{ fontFamily:'Suez One'}}>
+              <Button component={Link} to='/login' color="inherit" style={{ fontFamily:'Suez One'}}>
                 <b>Login</b>
               </Button>
-              <Button onClick={()=> history.push('/register')} color="inherit" style={{ fontFamily:'Suez One'}}>
+              <Button component={Link} to='/register' color="inherit" style={{ fontFamily:'Suez One'}}>
                 Register
               </Button>
               </div>

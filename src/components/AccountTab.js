@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import PropTypes from 'prop-types';
 import {Box, Tabs, Tab, Typography} from "@material-ui/core"
 import Pets from "./Pets";
+import History from "./History";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -56,7 +57,7 @@ const AccountTab = () => {
           <Pets />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          <History />
         </TabPanel>
       </Box>
     )

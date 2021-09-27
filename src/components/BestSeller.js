@@ -6,13 +6,12 @@ import { productActions } from "../redux/actions/product.actions";
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ShareIcon from '@material-ui/icons/Share';
 import "./Products/ProductStyle.css"
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {userActions} from "../redux/actions/user.actions";
 import { CircularProgress } from "@material-ui/core";
 
 const BestSeller = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
     const bestSellers = useSelector((state) => state.productReducer.bestSellers);
     const loading = useSelector((state) => state.productReducer.loading)
     useEffect(()=>{
@@ -36,7 +35,7 @@ const BestSeller = () => {
         ) : (  bestSellers && bestSellers.map((b)=>
             <Grid item xs={12} md={3} key={b._id} className="productCard">
             <Card sx={{ maxWidth: 280 }}>
-          <CardActionArea onClick={() => history.push(`/products/${b._id}`)}>
+          <CardActionArea component={Link} to={`/products/${b._id}`}>
           <CardMedia
             component="img"
             height="200rem"

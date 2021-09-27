@@ -33,7 +33,7 @@ const MyAccount = () => {
           },
           {
             value: user.point,       //user's current point
-            label: user.point
+            label: user.point.toFixed(1)
           }
         ]
       }

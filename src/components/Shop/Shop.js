@@ -1,15 +1,11 @@
 import { Button, Grid, List, ListItem, ListItemText, Typography } from "@material-ui/core";
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./style.css"
 
 
 const Shop=()=>{
-    const history = useHistory();
     
-    const handleClickProduct=()=>{
-        history.push('/products');
-    }
     return (
         <div className="containerShop">
             <Grid container>
@@ -22,7 +18,7 @@ const Shop=()=>{
                             <ListItemText style={{color:"gray"}}>Explore our fine selection of dry food, canned food and treats.</ListItemText>
                         </ListItem>
                         <ListItem style={{display:"flex", justifyContent:"flex-end", height:"30%"}}>
-                            <Button variant="contained" color="secondary" size="large" style={{height:"50%"}} onClick={handleClickProduct}>Products</Button>
+                            <Button variant="contained" color="secondary" size="large" style={{height:"50%"}} component={Link} to='/products'>Products</Button>
                         </ListItem>
                     </List>
                 </Grid>

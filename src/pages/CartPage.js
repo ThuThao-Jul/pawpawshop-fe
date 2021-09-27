@@ -3,7 +3,7 @@ import { Fab } from "@material-ui/core";
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { userActions } from "../redux/actions/user.actions";
 import "./stylePage.css"
 
@@ -11,7 +11,6 @@ import "./stylePage.css"
 const CartPage = () => {
     const cart = useSelector((state) => state.userReducer.data.cart);
     const dispatch = useDispatch();
-    const history = useHistory();
     console.log('cart', cart)
 
     const handleDeleteProduct = (id) => {
@@ -26,7 +25,6 @@ const CartPage = () => {
     const handleClickOrder = (e) => {
       e.preventDefault();
       dispatch(userActions.postOrder());
-      history.push('/order')
     }
 
     return (
@@ -41,6 +39,7 @@ const CartPage = () => {
                 variant="contained" 
                 style={{backgroundColor:"#3D087B", color:"white", fontFamily:"Suez One", width:"15%"}}
                 onClick={handleClickOrder}
+                component={Link} to='/order'
                 >
                 Checkout
                 </Button>
@@ -57,9 +56,8 @@ const CartPage = () => {
             alt={c.product.name}
             height="250"
             image={c.product.images[0]}
-            onClick={() => history.push(`/products/${c.product._id}`)}
           />
-          <CardContent style={{color:"#3D087B"}} onClick={() => history.push(`/products/${c.product._id}`)} >
+          <CardContent style={{color:"#3D087B", textDecoration:'none'}} component={Link} to={`/products/${c.product._id}`} >
             <Typography gutterBottom variant="h5" component="div" style={{fontFamily:"Suez One"}}>
               {c.product.name}
             </Typography>

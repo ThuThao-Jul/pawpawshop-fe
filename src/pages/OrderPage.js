@@ -1,7 +1,7 @@
 import { Button, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import DeliveryForm from "../components/DeliveryForm/DeliveryForm";
 import OrderDetail from "../components/OrderDetails/OrderDetails";
 
@@ -10,7 +10,6 @@ import OrderDetail from "../components/OrderDetails/OrderDetails";
 
 const OrderPage = () => {
     const order = useSelector((state) => state.userReducer.orders);
-    const history = useHistory();
     return (
         <>
             {order ? (
@@ -27,7 +26,7 @@ const OrderPage = () => {
                 <Button 
                 variant="contained" 
                 style={{backgroundColor:"#FF3D68", color:"white", fontFamily:"Suez One"}}
-                onClick={() => history.push('/products')}
+                component={Link} to='/products'
                 >
                     Go shopping
                 </Button>
