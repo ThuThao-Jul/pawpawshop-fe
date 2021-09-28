@@ -11,7 +11,11 @@ import "./stylePage.css"
 const CartPage = () => {
     const cart = useSelector((state) => state.userReducer.data.cart);
     const dispatch = useDispatch();
-    console.log('cart', cart)
+
+    // useEffect(() => {
+    //   dispatch(userActions.getUserProfile());
+    // }, [dispatch])
+    
 
     const handleDeleteProduct = (id) => {
         dispatch(userActions.addToCart({"id": id, "quantity": 0}))
@@ -23,7 +27,7 @@ const CartPage = () => {
     }
 
     const handleClickOrder = (e) => {
-      e.preventDefault();
+      // e.preventDefault();
       dispatch(userActions.postOrder());
     }
 

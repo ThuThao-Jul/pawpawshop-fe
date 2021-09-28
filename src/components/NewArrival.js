@@ -6,7 +6,7 @@ const NewArrival = () => {
     return (
         <Grid container style={{marginTop:"3%", marginBottom:"4%", height:"20rem"}}>
             <Grid item xs={12} md={6} style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
-               <Typography variant="h2" style={{fontFamily: "Suez One", color:"#3D087B"}}>
+               <Typography variant="h2" style={{fontFamily: "Noto Serif", color:"#3D087B"}}>
                    New arrival
                </Typography>
                <Button variant="contained" color="secondary">Explore now</Button>

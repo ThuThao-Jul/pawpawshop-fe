@@ -29,6 +29,22 @@ const getAllPets = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({type: types.GET_PET_FAILURE, payload: error})
     }
+};
+
+const deletePet = ({ownerId, petId}) => async (dispatch) => {
+    dispatch({type: types.POST_PET_REQUEST, payload: null});
+
+    try {
+        let url = `/pet/${petId}`;
+        await api.delete(url);
+        toast.success("Your pet has been deleted successfully.")
+
+        //get current pets
+        const res = await api.get(`/pet?ownerId=${ownerId}`);
+        dispatch({type: types.DELETE_PET_SUCCESS, payload: res.data.data.pets})
+    } catch (error) {
+        dispatch({type: types.DELETE_PET_FAILURE, payload: error})
+    }
 }
 
-export const petAction = { postNewPet, getAllPets}
+export const petAction = { postNewPet, getAllPets, deletePet}

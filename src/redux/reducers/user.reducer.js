@@ -36,8 +36,10 @@ const userReducer = (state = initialState, action) => {
         case types.DELETE_ORDER_SUCCESS:
             return {...state, "loading": false, "data": payload, "orders": null};
         case types.PUT_ORDER_SUCCESS:
-            return {...state, "loading": false, "data": payload, "orders": null, "cart": []}
-            case types.POST_USER_FAILURE:
+            return {...state, "loading": false, "data": payload, "orders": null, "cart": []};
+        case types.GET_PAIDORDERS_SUCCESS:
+            return {...state, "loading": false, "paidOrders": payload}
+        case types.POST_USER_FAILURE:
             return state;
         default:
             return state;

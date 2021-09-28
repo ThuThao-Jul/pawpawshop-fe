@@ -5,6 +5,7 @@ import {Card, CardHeader, Avatar, Box, Slider, Typography, CardContent, Grid, Li
 import { useSelector } from "react-redux";
 import AccountTab from "../components/AccountTab";
 
+
 const MyAccount = () => {
     const user = useSelector((state) => state.userReducer.data);
     let min = 0;
@@ -36,7 +37,9 @@ const MyAccount = () => {
             label: user.point.toFixed(1)
           }
         ]
-      }
+      };
+
+  
     return (
         <Grid container style={{padding: "1%"}}>
             <Card sx={{ maxWidth: 345 }} style={{width:"100%", display:"flex"}}>
@@ -72,10 +75,10 @@ const MyAccount = () => {
           </Typography>
           <List>
               <ListItemText>
-                  Lulu is gonna have vaccination in the next 3 days.
+                 Lucky should be dewormed tomorrow.
               </ListItemText>
               <ListItemText>
-                  Lulu is gonna have vaccination in the next 3 days.
+                  Apple should be vaccinated on Oct 1.
               </ListItemText>
           </List>
       </CardContent>

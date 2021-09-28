@@ -163,6 +163,18 @@ const putPayment = ({id, address, phone})=> async (dispatch) => {
     }
 };
 
+const getPaidOrders = ({page,limit}) => async (dispatch) => {
+    dispatch({ type: types.POST_USER_REQUEST, payload: null});
+
+    try {
+        let url = `/user/orders?page=${page}&limit=${limit}`;
+        const res = await api.get(url);
+        dispatch({type: types.GET_PAIDORDERS_SUCCESS, payload: res.data.data})
+    } catch (error) {
+        dispatch({type: types.GET_USERPROFILE_FAILURE, payload: error})
+    }
+}
+
 export const userActions = {
     postRegister, 
     postLogIn, 
@@ -172,5 +184,6 @@ export const userActions = {
     deleteCart,
     postOrder,
     deleteOrder,
-    putPayment
+    putPayment,
+    getPaidOrders
 };

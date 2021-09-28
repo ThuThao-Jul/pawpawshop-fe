@@ -1,27 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { Backdrop, Card, CardHeader, 
-  Avatar, IconButton, Slider, CardContent, CardActions, 
-  Collapse, Box, Typography, CardActionArea, CardMedia, Grid, Fab, Tooltip } from "@material-ui/core";
-import { styled } from '@mui/material/styles';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+  Avatar, IconButton, Slider, Box, Typography } from "@material-ui/core";
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import CloseIcon from '@material-ui/icons/Close';
-import AddIcon from '@material-ui/icons/Add';
 import { red } from '@mui/material/colors';
-import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import { userActions } from "../redux/actions/user.actions";
-
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 
 
@@ -29,7 +13,6 @@ const ExpandMore = styled((props) => {
 const ProfilePopup = ({openProfile, setOpenProfile}) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer.data)
-  const [expanded, setExpanded] = useState(false);
   let min = 0;
   let max = 0;
   let marks =[]
@@ -54,32 +37,21 @@ const ProfilePopup = ({openProfile, setOpenProfile}) => {
 
   if(user) {
     marks = [
-      // {
-      //   value: min,     //equal to min
-      //   label: min
-      // },
       {
         value: max,    // equal to max
         label: max,
       },
       {
         value: user.point,       //user's current point
-        label: user.point
+        label: user.point.toFixed(1)
       }
     ]
   }
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   const handleClose = () => {
       setOpenProfile(false);
   };
     
-  const handleClickPet = () => {
-    setOpenProfile(false);
-  }
 
     return ( user &&
         <Backdrop
@@ -88,7 +60,7 @@ const ProfilePopup = ({openProfile, setOpenProfile}) => {
         style={{zIndex:"10"}}
       >
 
-<Card sx={{ maxWidth: 345 }} style={{width:"35%"}}>
+<Card sx={{ maxWidth: 345 }} style={{width:"35%", paddingBottom:"2%"}}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -118,59 +90,8 @@ const ProfilePopup = ({openProfile, setOpenProfile}) => {
           <b>{max - user.point}</b> more points to advance to the next tier.
         </Typography>
       </Box>
-      {/* <CardContent>
-      </CardContent> */}
-      <CardActions disableSpacing style={{marginLeft:"2%"}}>
-        <Typography variant="h6">
-          My pets
-        </Typography>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <div style={{display:"flex", justifyContent:"space-between", marginBottom:'4%'}}>
-          <Typography variant="subtitle2">Your family has 3 members.</Typography>
-        <Tooltip title="Add" placement="left-start">
-          <Fab color="primary" aria-label="add" size="small" component={Link} to='/pet/create' onClick={handleClickPet}>
-            <AddIcon />
-          </Fab>
-        </Tooltip>
-          </div>
-          <Grid container>
-
-            <Grid item xs={12} md={6}>
-        <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="200"
-          image="https://images-na.ssl-images-amazon.com/images/I/71%2BmDoHG4mL.png"
-          alt="cat"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Lyly
-          </Typography>
-         
-        </CardContent>
-      </CardActionArea>
-    </Card>
-
-    </Grid>
-
-    </Grid>
-        </CardContent>
-      </Collapse>
+  
     </Card> 
-      
-      
       
       </Backdrop>
     )
