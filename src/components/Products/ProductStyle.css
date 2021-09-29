@@ -10,12 +10,19 @@
 }
 .categories{
     border-radius: 10px;
-    border: 1.5px dashed #3D087B;
-    box-shadow: 2px 3px rgba(128, 128, 128, 0.849);
+    /* border: 1.5px dashed #3D087B; */
+    /* box-shadow: 2px 3px rgba(128, 128, 128, 0.849); */
     margin-top: 10%;
-    background-image: linear-gradient(to bottom right, #ff587cb9, #fcfafba4);
+    /* background-image: linear-gradient(to bottom right, #ff587cb9, #fcfafba4); */
     display: flex;
     flex-direction: column;
+    margin-top: 25%;
+}
+.priceRange {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6%;
 }
 .typo{
     text-align: center;

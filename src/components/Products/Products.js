@@ -1,7 +1,7 @@
 import { Grid, Box, List, ListItemButton, InputBase, Autocomplete, TextField,
 Card, CardActionArea, CardMedia, CardContent, CardActions, Typography,
 Stack, Pagination} from "@mui/material";
-import {Button, CircularProgress, IconButton, Collapse} from "@material-ui/core"
+import {Button, CircularProgress, IconButton, Collapse, Divider} from "@material-ui/core"
 import ShareIcon from '@material-ui/icons/Share';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -91,7 +91,7 @@ const Products = () => {
   const handleSearch=(e)=>{
     e.preventDefault();
     if(e.keyCode === 13){
-      setFilter({...filter, "name": e.target.value})
+      setFilter({...filter, "name": e.target.value});
     }
   };
 
@@ -135,9 +135,6 @@ const Products = () => {
 
             {/* Price range */}
             <div style={{margin:"2%", display:"flex", flexDirection:"column", alignItems:"center", lineHeight:"3rem"}}>
-            <Typography variant="h8">
-              Price range:<b> {new Intl.NumberFormat('de-DE').format(priceRange[0])}</b> - <b>{new Intl.NumberFormat('de-DE').format(priceRange[1])}</b> VND
-            </Typography>
             <AirbnbSlider
               ThumbComponent={AirbnbThumbComponent}
               getAriaLabel={(index) => (index === 0 ? 'Minimum price' : 'Maximum price')}
@@ -146,9 +143,14 @@ const Products = () => {
               min={0}
               onChange={handlePriceChange}
             />
-            <Button variant="contained" color="secondary" onClick={handleSubmitChange} style={{marginBottom:"8%"}}>Apply</Button>
+            <div className="priceRange">
+            <Typography variant="h8">
+              Price:<b> {new Intl.NumberFormat('de-DE').format(priceRange[0])}</b> - <b>{new Intl.NumberFormat('de-DE').format(priceRange[1])}</b> VND
+            </Typography>
+            <Button variant="contained" color="secondary" onClick={handleSubmitChange} style={{marginBottom:"8%"}} size="small">Apply</Button>
             </div>
-            <hr />
+            </div>
+            {/* <hr /> */}
 
             {/* Categories */}
             {productReducer.loading ? (
@@ -158,8 +160,7 @@ const Products = () => {
             </Stack>
             ) :(productReducer.categories && <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} className="categories">
                <List component="nav" aria-label="categories">
-                   <Typography variant="h5" className="typo" style={{fontFamily:"Suez One"}}>CATEGORIES</Typography>
-                <hr />
+                   <Typography variant="h5" className="typo" style={{fontFamily:"Suez One", color:"#3D087B"}}>CATEGORIES</Typography>
 
                 <div className="categoriesDesktop">
                 <ListItemButton
@@ -172,10 +173,12 @@ const Products = () => {
                   </p>
                 </div>
                 </ListItemButton>
+                <Divider />
                 </div>
                
                <div className="categoriesDesktop">
                {productReducer.categories.map((c) => 
+               <>
             <ListItemButton
             selected={selectedIndex === (productReducer.categories.indexOf(c)+1)}
             onClick={(event) => handleListItemClick(event, productReducer.categories.indexOf(c)+1)}
@@ -186,6 +189,8 @@ const Products = () => {
             </p>
             </div>
           </ListItemButton>
+            <Divider />
+            </>
           )}
           </div>
 
@@ -214,9 +219,10 @@ const Products = () => {
                   </p>
                 </div>
             </ListItemButton>
+            <Divider />
 
                {productReducer.categories.map((c) => 
-               
+               <>
             <ListItemButton
             selected={selectedIndex === (productReducer.categories.indexOf(c)+1)}
             onClick={(event) => handleListItemClick(event, productReducer.categories.indexOf(c)+1)}
@@ -227,6 +233,8 @@ const Products = () => {
             </p>
             </div>
           </ListItemButton>
+          <Divider />
+          </>
           )}
         </Collapse>
         </div>
@@ -256,11 +264,8 @@ const Products = () => {
         <div className={classes.search} style={{marginTop:'1%'}}>
               <InputBase
                 placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
                 inputProps={{ 'aria-label': 'search' }}
+                style={{paddingLeft:"10%", border:"1px solid #3D087B", borderRadius:"8px"}}
                 onKeyUp={handleSearch}
               />
         </div>

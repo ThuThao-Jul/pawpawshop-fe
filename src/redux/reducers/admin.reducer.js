@@ -8,6 +8,7 @@ const initialState = tokenAdmin ? previousData : {
     "paidOrders": null,
     "totalPages": null,
     "totalRevenue": null,
+    'dailyRevenue': null,
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -27,7 +28,7 @@ const adminReducer = (state = initialState, action) => {
             return {...state, "loading": false, "paidOders": payload.orders, "totalPages": payload.totalPages};
         case types.POST_ADMINLOGOUT_SUCCESS:
             localStorage.removeItem('adminData');
-            return {"loading": false, "login": false, "data": payload}
+            return {"loading": false, "login": false, "data": payload};
         case types.POST_ADMINLOGIN_FAILURE:
             return {...state,"loading": false, "login": false, "data": payload}
         default:

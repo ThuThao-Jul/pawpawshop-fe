@@ -31,7 +31,7 @@ const OrderDashboard = () => {
                 height: 240,
               }}
             >
-              {/* <Chart /> */} Something here
+              Something
             </Paper>
           </Grid>
 

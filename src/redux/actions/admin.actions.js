@@ -77,6 +77,6 @@ const postAdminLogout = () => async (dispatch) => {
     } catch (error) {
         dispatch({type: types.POST_ADMINLOGOUT_FAILURE, payload: error})
     }
-}
+};
 
 export const adminActions = {postAdminLogIn, getRevenue, getPaidOrders, putDelivery, postAdminLogout}
