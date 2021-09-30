@@ -45,6 +45,6 @@ const deletePet = ({ownerId, petId}) => async (dispatch) => {
     } catch (error) {
         dispatch({type: types.DELETE_PET_FAILURE, payload: error})
     }
-}
+};
 
 export const petAction = { postNewPet, getAllPets, deletePet}

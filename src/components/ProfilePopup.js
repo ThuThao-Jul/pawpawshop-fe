@@ -43,7 +43,7 @@ const ProfilePopup = ({openProfile, setOpenProfile}) => {
       },
       {
         value: user.point,       //user's current point
-        label: user.point.toFixed(1)
+        label: user.point.toFixed()
       }
     ]
   }
@@ -87,7 +87,7 @@ const ProfilePopup = ({openProfile, setOpenProfile}) => {
       max={max}
       />
         <Typography variant="body2" style={{textAlign:"right"}}>
-          <b>{max - user.point}</b> more points to advance to the next tier.
+          <b>{(max - user.point).toFixed()}</b> more points to advance to the next tier.
         </Typography>
       </Box>
   
