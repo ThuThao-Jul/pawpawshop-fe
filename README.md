@@ -1,8 +1,8 @@
 # Welcome to PawPaw
 
-Demo website: [PawPaw](https://pawpaw.netlify.app/) 
-For Admin: [Admin](https://pawpaw.netlify.app/admin)
-Backend: [Github](https://github.com/ThuThao-Jul/pawpawpetshop-be)
+- Demo website: [PawPaw](https://pawpaw.netlify.app/) 
+- For Admin: [Admin](https://pawpaw.netlify.app/admin)
+- Backend: [Github](https://github.com/ThuThao-Jul/pawpawpetshop-be)
 
 PawPaw is an e-commerce platform created for pet lovers. This project was made with NodeJS and ReactJS.
 
